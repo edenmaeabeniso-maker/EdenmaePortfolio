@@ -41,8 +41,41 @@
     padding:0 32px;
   }
 
+  /* ===== WELCOME FLOAT ===== */
+  .welcome-float{
+    position:absolute;
+    top:28px;
+    left:32px;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(22px, 3.2vw, 32px);
+    color:var(--gold-deep);
+    background:none;
+    border:none;
+    box-shadow:none;
+    padding:0;
+    pointer-events:none;
+    z-index:50;
+    opacity:0;
+    white-space:nowrap;
+    animation:welcomeFloat 5s ease forwards;
+  }
+
+  @keyframes welcomeFloat{
+    0%   { opacity:0; transform:translateX(16px); }
+    15%  { opacity:1; transform:translateX(0); }
+    70%  { opacity:1; transform:translateX(0); }
+    100% { opacity:0; transform:translateX(-70px); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .welcome-float{ animation:none; opacity:0; display:none; }
+  }
+
   /* ===== HERO ===== */
   .hero{
+    position:relative;
     padding:88px 0 60px;
     border-bottom:1px solid var(--line);
   }
@@ -568,6 +601,8 @@
 </head>
 <body>
 
+<div class="welcome-float" id="welcome-float" aria-hidden="true">Welcome</div>
+
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="photo-frame">
@@ -793,6 +828,11 @@
 </footer>
 
 <script>
+  const welcomeEl = document.getElementById('welcome-float');
+  if (welcomeEl) {
+    setTimeout(function(){ welcomeEl.remove(); }, 5200);
+  }
+
   const bookBtn = document.getElementById('book-call-btn');
   bookBtn.addEventListener('click', function(e){
     e.preventDefault();
@@ -804,3 +844,4 @@
 
 </body>
 </html>
+
