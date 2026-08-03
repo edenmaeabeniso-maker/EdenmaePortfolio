@@ -138,11 +138,18 @@
   .contact-row span:first-child{padding-left:0;}
   .contact-row span:last-child{border-right:none;}
 
+  .hero-links{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px 32px;
+    margin-top:30px;
+  }
+
   .see-work-link{
     display:inline-flex;
     align-items:center;
     gap:10px;
-    margin-top:30px;
+    margin-top:0;
     font-family:'Fraunces', serif;
     font-style:italic;
     font-weight:700;
@@ -550,6 +557,7 @@
     .photo-frame{margin:0 auto;}
     .eyebrow{justify-content:center;}
     .contact-row{justify-content:center;}
+    .hero-links{justify-content:center;}
     .entry{grid-template-columns:1fr; gap:6px;}
     .skill-groups{grid-template-columns:1fr 1fr;}
     .contact-grid{grid-template-columns:1fr;}
@@ -574,7 +582,10 @@
         <span>0927 582 0513</span>
         <span>Available for remote / US hours</span>
       </div>
-      <a href="#work" class="see-work-link">See My Work ↓</a>
+      <div class="hero-links">
+        <a href="#work" class="see-work-link">See My Work ↓</a>
+        <a href="#contact-section" class="see-work-link">Get in Touch ↓</a>
+      </div>
     </div>
   </div>
 </header>
@@ -793,4 +804,3 @@
 
 </body>
 </html>
-
