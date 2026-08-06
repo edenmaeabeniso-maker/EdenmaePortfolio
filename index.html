@@ -41,6 +41,98 @@
     padding:0 32px;
   }
 
+  .summary-clickable{
+    cursor:pointer;
+    position:relative;
+    display:inline;
+    transition:color .2s ease;
+  }
+
+  .summary-clickable:hover{
+    color:var(--ink);
+  }
+
+  .summary-clickable::after{
+    content:"click to expand ↗";
+    display:block;
+    margin-top:10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--gold);
+    opacity:.7;
+  }
+
+  /* ===== SUMMARY MODAL ===== */
+  .summary-modal-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(33,29,24,.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+    z-index:10000;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity .3s ease, visibility .3s ease;
+  }
+
+  .summary-modal-backdrop.active{
+    opacity:1;
+    visibility:visible;
+  }
+
+  .summary-modal-box{
+    position:relative;
+    max-width:620px;
+    background:var(--paper-raise);
+    border:1px solid var(--gold);
+    padding:48px 44px;
+    transform:scale(.9) translateY(10px);
+    transition:transform .3s ease;
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.5);
+  }
+
+  .summary-modal-backdrop.active .summary-modal-box{
+    transform:scale(1) translateY(0);
+  }
+
+  .summary-modal-close{
+    position:absolute;
+    top:18px;
+    right:18px;
+    background:none;
+    border:none;
+    font-size:16px;
+    color:var(--ink-soft);
+    cursor:pointer;
+    line-height:1;
+    padding:6px;
+  }
+
+  .summary-modal-close:hover{
+    color:var(--ink);
+  }
+
+  .summary-modal-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--gold-deep);
+    margin-bottom:18px;
+  }
+
+  .summary-modal-text{
+    font-family:'Fraunces', serif;
+    font-weight:400;
+    font-size:22px;
+    line-height:1.5;
+    color:var(--ink);
+  }
+
   /* ===== WELCOME FLOAT ===== */
   .welcome-float{
     position:absolute;
@@ -409,6 +501,27 @@
     line-height:1.6;
   }
 
+  .work-zoom-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:8px;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:13px;
+    color:var(--gold-deep);
+    text-decoration:none;
+    border-bottom:1px solid var(--gold);
+    width:fit-content;
+    padding-bottom:2px;
+    transition:color .2s ease;
+  }
+
+  .work-zoom-link:hover{
+    color:var(--ink);
+  }
+
   /* ===== CONTACT / BOOKING ===== */
   .contact-grid{
     display:grid;
@@ -611,11 +724,11 @@
     <div>
       <div class="eyebrow">Virtual Assistant &nbsp;•&nbsp; Bago City, Philippines</div>
       <h1>Eden Mae B.<br>Abeniso</h1>
-      <div class="role-line">Loan Processing &amp; Encoding — Administrative Support</div>
+      <div class="role-line">General Virtual Assistant</div>
       <div class="contact-row">
         <span>edenmaeabeniso@gmail.com</span>
         <span>0927 582 0513</span>
-        <span>Available for remote / US hours</span>
+        <span>Available for remote / Global</span>
       </div>
       <div class="hero-links">
         <a href="#work" class="see-work-link">See My Work ↓</a>
@@ -632,7 +745,7 @@
       <span class="sec-num">I.</span>
       <h2>Summary</h2>
     </div>
-    <p class="summary-text">Detail-oriented and dependable Virtual Assistant with over three years of experience in banking operations, loan administration, data entry, document management, and customer service. Skilled at managing confidential information, verifying documents, and keeping records accurate under deadline pressure. Comfortable across Microsoft Office, Google Workspace, and remote collaboration tools — committed to helping businesses stay organized, accurate, and audit-ready.</p>
+    <p class="summary-text summary-clickable" id="summary-trigger" role="button" tabindex="0" aria-label="Expand summary">Detail-oriented and highly organized Virtual Assistant with over 3 years of experience providing administrative support, data entry, document management, customer service, and loan processing. Proficient in managing calendars, emails, scheduling appointments, handling confidential information, and maintaining accurate records. Skilled in using productivity tools such as Microsoft Office, Google Workspace, and various CRM systems, with the ability to quickly learn new software. Known for strong communication skills, excellent time management, and the ability to work independently in fast-paced remote environments. Dedicated to delivering efficient, reliable, and high-quality support that helps businesses streamline operations and achieve their goals.</p>
   </section>
 
   <section class="wrap">
@@ -643,7 +756,7 @@
     <div class="ledger">
 
       <div class="entry">
-        <div class="entry-date">MAY 2023 —<br>PRESENT</div>
+        <div class="entry-date">MAY 2023 —<br>2026</div>
         <div>
           <div class="entry-role">Encoder / Administrative Staff</div>
           <div class="entry-org">Maybank</div>
@@ -768,6 +881,7 @@
         <figcaption>
           <span class="work-title">Loan File Documentation</span>
           <span class="work-desc">End-to-end file assembly — application, verification, credit assessment, and approval summary.</span>
+          <a class="work-zoom-link" href="https://us05web.zoom.us/j/3556519118?pwd=rTV9bgugck8p0ZeZcfkB8pXXj8La3C.1" target="_blank" rel="noopener">Join Zoom Call ↗</a>
         </figcaption>
       </figure>
     </div>
@@ -827,6 +941,14 @@
   </div>
 </footer>
 
+<div class="summary-modal-backdrop" id="summary-modal">
+  <div class="summary-modal-box">
+    <button class="summary-modal-close" id="summary-modal-close" aria-label="Close">✕</button>
+    <div class="summary-modal-eyebrow">— Summary</div>
+    <p class="summary-modal-text">Detail-oriented and highly organized Virtual Assistant with over 3 years of experience providing administrative support, data entry, document management, customer service, and loan processing. Proficient in managing calendars, emails, scheduling appointments, handling confidential information, and maintaining accurate records. Skilled in using productivity tools such as Microsoft Office, Google Workspace, and various CRM systems, with the ability to quickly learn new software. Known for strong communication skills, excellent time management, and the ability to work independently in fast-paced remote environments. Dedicated to delivering efficient, reliable, and high-quality support that helps businesses streamline operations and achieve their goals.</p>
+  </div>
+</div>
+
 <script>
   const welcomeEl = document.getElementById('welcome-float');
   if (welcomeEl) {
@@ -834,6 +956,31 @@
   }
 
   const bookBtn = document.getElementById('book-call-btn');
+
+  const summaryTrigger = document.getElementById('summary-trigger');
+  const summaryModal = document.getElementById('summary-modal');
+  const summaryModalClose = document.getElementById('summary-modal-close');
+
+  function openSummaryModal(){
+    summaryModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSummaryModal(){
+    summaryModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  summaryTrigger.addEventListener('click', openSummaryModal);
+  summaryTrigger.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openSummaryModal(); }
+  });
+  summaryModalClose.addEventListener('click', closeSummaryModal);
+  summaryModal.addEventListener('click', function(e){
+    if (e.target === summaryModal) closeSummaryModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeSummaryModal();
+  });
   bookBtn.addEventListener('click', function(e){
     e.preventDefault();
     const subject = encodeURIComponent('Booking request: 20-min call');
